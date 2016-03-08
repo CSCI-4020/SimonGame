@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 
 public class AboutActivity extends Activity {
+    private String about;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
