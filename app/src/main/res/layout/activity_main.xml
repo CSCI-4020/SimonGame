@@ -22,4 +22,12 @@
         android:layout_below="@+id/play_button"
         android:layout_alignStart="@+id/play_button"
         android:layout_marginTop="72dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_above="@+id/play_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="69dp" />
 </RelativeLayout>
