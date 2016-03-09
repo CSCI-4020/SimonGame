@@ -11,24 +11,24 @@
         android:layout_height="wrap_content"
         android:text="Play"
         android:id="@+id/play_button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="46dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="About"
         android:id="@+id/about_button"
-        android:layout_below="@+id/play_button"
-        android:layout_alignStart="@+id/play_button"
-        android:layout_marginTop="72dp" />
+        android:layout_alignTop="@+id/play_button"
+        android:layout_alignEnd="@+id/imageView" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
+        android:src="@drawable/simonlogo"
+        android:layout_alignParentStart="true"
         android:layout_above="@+id/play_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="69dp"
-        android:src="@drawable/simonlogo1"/>
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
