@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        >
+        android:id="@+id/linearLayout">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -86,7 +86,7 @@
                 android:src="@drawable/redbuttonclear"
                 android:background="@android:color/transparent"
 
-                android:layout_gravity="center_horizontal" />
+                />
         </TableRow>
 
         <TableRow
@@ -102,7 +102,7 @@
                  />
 
             <ImageButton
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/greenbuttonclear"
                 android:background="@android:color/transparent"
@@ -132,6 +132,8 @@
         android:text="Message"
         android:id="@+id/message_textView"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/linearLayout"
+        android:gravity="center_horizontal" />
 
 </RelativeLayout>
