@@ -13,7 +13,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:id="@+id/linearLayout">
@@ -73,11 +73,14 @@
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:stretchColumns="*">
+        android:stretchColumns="*"
+        android:layout_below="@+id/linearLayout"
+        android:layout_above="@+id/message_textView">
 
         <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <ImageButton
                 android:layout_width="match_parent"
@@ -94,6 +97,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
+                android:gravity="left"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/blue_imageView"
@@ -103,6 +107,7 @@
 
             <ImageButton
                 android:layout_width="match_parent"
+                android:gravity="right"
                 android:layout_height="wrap_content"
                 android:src="@drawable/greenbuttonclear"
                 android:background="@android:color/transparent"
@@ -111,8 +116,9 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <ImageButton
                 android:layout_width="match_parent"
