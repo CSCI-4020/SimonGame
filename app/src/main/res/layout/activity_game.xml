@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.apsu.csci.simongame.GameActivity"
-    android:background="@android:color/holo_blue_light">
+    android:background="@android:color/holo_blue_light"
+    android:id="@+id/mainlayout">
 
     <LinearLayout
         android:orientation="vertical"
@@ -100,7 +101,7 @@
                 android:gravity="left"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/blue_imageView"
+                android:id="@+id/blue_imageButton"
                 android:src="@drawable/bluebuttonclear"
                 android:background="@android:color/transparent"
                  />
@@ -123,7 +124,7 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/yellow_imageView"
+                android:id="@+id/yellow_imageButton"
                 android:src="@drawable/yellowbuttonclear"
                 android:background="@android:color/transparent"
 
