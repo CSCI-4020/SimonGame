@@ -16,9 +16,9 @@ import java.util.Random;
 
 public class GameActivity extends Activity {
 
-   // final static int maxSequence = 50;
-   // int[] sequence = new int[maxSequence];
-    ArrayList<Integer> sequence = new ArrayList<>();
+    final static int maxSequence = 50;
+    int[] sequence = new int[maxSequence];
+    // ArrayList<Integer> sequence = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,79 +47,84 @@ public class GameActivity extends Activity {
         return randomNum;
     }
 
-    public void simonFunction(){
+    public void simonFunction() {
         TextView tv = (TextView) findViewById(R.id.message_textView);
 
 
-        for (int i = 0; i<=50; i++){
+        for (int i = 0; i <= 49; i++) {
             tv.setText(Integer.toString(i));
             Log.i("Count", Integer.toString(i));
-          int temp = randomNumber();
+            int temp = randomNumber() + 1;
+            Log.i("temp", Integer.toString(temp));
+            sequence[i] = temp;
 
 
-            sequence.add(temp);
-            //tv.setText("Watch the sequence!");
-            for(int index : sequence) {
-                if (index == 0) {
-                  //  tv.setText("Red!");
+            int index = 0;
+
+            while (index < sequence.length) {
+                if (sequence[index] == 1) {
+
+                    //  tv.setText("Red!");
+
                     showRedButton();
-                } else if (index == 1) {
-                  //  tv.setText("Green!");
+                } else if (sequence[index] == 2) {
+                    //  tv.setText("Green!");
                     showGreenButton();
-                } else if (index== 2) {
-                   // tv.setText("Yellow!");
+                } else if (sequence[index] == 3) {
+                    // tv.setText("Yellow!");
                     showYellowButton();
-                } else if (index == 3) {
-                   // tv.setText("Blue!");
+                } else if (sequence[index] == 4) {
+                    // tv.setText("Blue!");
                     showBlueButton();
+                } else {
+                    break;
                 }
-
+                index++;
             }
+
+
+
 
 
         }
 
 
-
-
     }
 
-    public void showRedButton(){
-        ImageButton redButton = (ImageButton)findViewById(R.id.red_imageButton);
+    public void showRedButton() {
+
+        ImageButton redButton = (ImageButton) findViewById(R.id.red_imageButton);
         redButton.setImageResource(R.drawable.selector);
 
 
-
-        redButton.setImageResource(R.drawable.redbuttonclear);
+        // redButton.setImageResource(R.drawable.redbuttonclear);
 
     }
 
-    public void showBlueButton(){
-        ImageButton blueButton = (ImageButton)findViewById(R.id.blue_imageButton);
+    public void showBlueButton() {
+        ImageButton blueButton = (ImageButton) findViewById(R.id.blue_imageButton);
         blueButton.setImageResource(R.drawable.selector);
 
 
-       blueButton.setImageResource(R.drawable.bluebuttonclear);
+        // blueButton.setImageResource(R.drawable.bluebuttonclear);
 
     }
 
-    public void showGreenButton(){
-        ImageButton greenButton = (ImageButton)findViewById(R.id.green_imageButton);
+    public void showGreenButton() {
+        ImageButton greenButton = (ImageButton) findViewById(R.id.green_imageButton);
         greenButton.setImageResource(R.drawable.selector);
 
 
-
-       greenButton.setImageResource(R.drawable.greenbuttonclear);
+        //  greenButton.setImageResource(R.drawable.greenbuttonclear);
 
     }
 
-    public void showYellowButton(){
-        ImageButton yellowButton = (ImageButton)findViewById(R.id.yellow_imageButton);
+    public void showYellowButton() {
+        ImageButton yellowButton = (ImageButton) findViewById(R.id.yellow_imageButton);
         yellowButton.setImageResource(R.drawable.selector);
 
 
-
-        yellowButton.setImageResource(R.drawable.yellowbuttonclear);
+        // yellowButton.setImageResource(R.drawable.yellowbuttonclear);
 
     }
 }
