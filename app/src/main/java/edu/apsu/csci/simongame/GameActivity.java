@@ -48,13 +48,13 @@ public class GameActivity extends Activity {
         return randomNum;
     }
 
-
-    public void simonFunction() {
+    public void showPattern(){
         TextView tv = (TextView) findViewById(R.id.message_textView);
 
 
 
         for (int i = 0; i <= 49; i++) {
+
             setUnClickAble();
             tv.setText("Watch the Sequence");
             Log.i("Count", Integer.toString(i));
@@ -62,23 +62,15 @@ public class GameActivity extends Activity {
             Log.i("temp", Integer.toString(temp));
             sequence[i] = temp;
 
-           if(updateTask==null) {
-               updateTask = new UpdateTask();
-               updateTask.execute();
-           }else{
-               Log.i("update task","Already running update task");
-           }
+            if(updateTask==null) {
+                updateTask = new UpdateTask();
+                updateTask.execute();
+            }else{
+                Log.i("update task","Already running update task");
+            }
 
             tv.setText("Enter the Sequence");
-
             setClickAble();
-
-            int index =0;
-
-
-
-
-
 
             if(updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
                 updateTask=null;
@@ -86,9 +78,16 @@ public class GameActivity extends Activity {
 
         }
 
+    }
+
+
+    public void simonFunction() {
+        showPattern();
 
 
     }
+
+
 
     class UpdateTask extends AsyncTask<Void,Void,Void> {
 
