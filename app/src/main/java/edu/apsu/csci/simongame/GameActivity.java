@@ -96,8 +96,9 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
             Log.i("Logger", String.valueOf(logger));
 
-
-            if(sequence[logger+1]==0){
+             logger++;
+             temp = logger;
+            if(sequence[logger]==0){
 
                 Log.i("if","sequence[logger] == 0 ");
                 updateScore();
@@ -105,8 +106,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
                 logger=0;
 
             }
-            logger++;
-            temp = logger;
+
 
 
 
@@ -117,7 +117,8 @@ public class GameActivity extends Activity implements View.OnClickListener{
     public void lostGame(){
         setUnClickAble();
         logger=0;
-        i=0;
+        //i=0;
+        temp=0;
         TextView tv = (TextView) findViewById(R.id.message_textView);
         tv.setText("You loose");
         currentScore=0;
@@ -183,7 +184,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
             }
 
             tv.setText("Enter the Sequence");
-           setClickAble();
+            setClickAble();
 
             if(updateTask != null || updateTask.getStatus() == AsyncTask.Status.FINISHED){
                 updateTask=null;
