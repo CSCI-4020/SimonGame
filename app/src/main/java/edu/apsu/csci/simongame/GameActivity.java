@@ -20,7 +20,7 @@ public class GameActivity extends Activity {
     final static int maxSequence = 50;
     int[] sequence = new int[maxSequence];
     // ArrayList<Integer> sequence = new ArrayList<>();
-
+    private UpdateTask updateTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +48,43 @@ public class GameActivity extends Activity {
         return randomNum;
     }
 
+
     public void simonFunction() {
         TextView tv = (TextView) findViewById(R.id.message_textView);
 
-        UpdateTask updateTask = new UpdateTask();
-        updateTask.execute();
+
+
+        for (int i = 0; i <= 49; i++) {
+            setUnClickAble();
+            tv.setText("Watch the Sequence");
+            Log.i("Count", Integer.toString(i));
+            int temp = randomNumber() + 1;
+            Log.i("temp", Integer.toString(temp));
+            sequence[i] = temp;
+
+           if(updateTask==null) {
+               updateTask = new UpdateTask();
+               updateTask.execute();
+           }else{
+               Log.i("update task","Already running update task");
+           }
+
+            tv.setText("Enter the Sequence");
+
+            setClickAble();
+
+            int index =0;
+
+
+
+
+
+
+            if(updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
+                updateTask=null;
+            }
+
+        }
 
 
 
@@ -64,12 +96,7 @@ public class GameActivity extends Activity {
         protected Void doInBackground(Void... voids) {
 
 
-            for (int i = 0; i <= 49; i++) {
-               // tv.setText(Integer.toString(i));
-                Log.i("Count", Integer.toString(i));
-                int temp = randomNumber() + 1;
-                Log.i("temp", Integer.toString(temp));
-                sequence[i] = temp;
+
 
                 int index = 0;
 
@@ -85,7 +112,7 @@ public class GameActivity extends Activity {
 
                         //  tv.setText("Red!");
                         try {
-                            Thread.sleep(8000);
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -98,6 +125,12 @@ public class GameActivity extends Activity {
                             }
                         });
 
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
                     } else if (sequence[index] == 2) {
 
                         runOnUiThread(new Runnable() {
@@ -107,7 +140,7 @@ public class GameActivity extends Activity {
                             }
                         });
                         try {
-                            Thread.sleep(8000);
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -120,6 +153,12 @@ public class GameActivity extends Activity {
                             }
                         });
 
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
                     } else if (sequence[index] == 3) {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -128,7 +167,7 @@ public class GameActivity extends Activity {
                             }
                         });
                         try {
-                            Thread.sleep(8000);
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -141,6 +180,12 @@ public class GameActivity extends Activity {
                             }
                         });
 
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
                     } else if (sequence[index] == 4) {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -151,7 +196,7 @@ public class GameActivity extends Activity {
 
                         });
                         try {
-                            Thread.sleep(8000);
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -164,6 +209,12 @@ public class GameActivity extends Activity {
                             }
                         });
 
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
                     } else {
                         break;
                     }
@@ -175,7 +226,8 @@ public class GameActivity extends Activity {
 
 
 
-            }
+
+
 
 
             return null;
@@ -243,4 +295,32 @@ public class GameActivity extends Activity {
         Log.i("Yellow", "Changed to yellow");
 
     }
+
+    public void setClickAble(){
+        ImageButton yellowButton = (ImageButton) findViewById(R.id.yellow_imageButton);
+        ImageButton greenButton = (ImageButton) findViewById(R.id.green_imageButton);
+        ImageButton blueButton = (ImageButton) findViewById(R.id.blue_imageButton);
+        ImageButton redButton = (ImageButton) findViewById(R.id.red_imageButton);
+
+        yellowButton.setClickable(true);
+        greenButton.setClickable(true);
+        blueButton.setClickable(true);
+        redButton.setClickable(true);
+
+    }
+
+    public void setUnClickAble(){
+        ImageButton yellowButton = (ImageButton) findViewById(R.id.yellow_imageButton);
+        ImageButton greenButton = (ImageButton) findViewById(R.id.green_imageButton);
+        ImageButton blueButton = (ImageButton) findViewById(R.id.blue_imageButton);
+        ImageButton redButton = (ImageButton) findViewById(R.id.red_imageButton);
+
+        yellowButton.setClickable(false);
+        greenButton.setClickable(false);
+        blueButton.setClickable(false);
+        redButton.setClickable(false);
+
+
+    }
+
 }
