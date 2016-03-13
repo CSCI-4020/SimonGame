@@ -5,15 +5,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
+
 import java.util.Random;
 
 public class GameActivity extends Activity implements View.OnClickListener{
@@ -25,7 +23,8 @@ public class GameActivity extends Activity implements View.OnClickListener{
     int currentScore =0;
     int highScore;
     int i=0;
-    int temp=0;
+    int temp =1;
+
 
 
 
@@ -95,18 +94,19 @@ public class GameActivity extends Activity implements View.OnClickListener{
             }
 
             Log.i("Logger", String.valueOf(logger));
+             temp++;
 
-             logger++;
-             temp = logger;
-            if(sequence[logger]==0){
+
+            if(sequence[logger+1]==0){
+                logger=0;
 
                 Log.i("if","sequence[logger] == 0 ");
                 updateScore();
                 simonFunction();
-                logger=0;
+
 
             }
-
+            logger++;
 
 
 
@@ -117,8 +117,8 @@ public class GameActivity extends Activity implements View.OnClickListener{
     public void lostGame(){
         setUnClickAble();
         logger=0;
-        //i=0;
-        temp=0;
+        i=0;
+
         TextView tv = (TextView) findViewById(R.id.message_textView);
         tv.setText("You loose");
         currentScore=0;
@@ -167,7 +167,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
 
 
-         do{
+        while (i <temp){
 
             setUnClickAble();
             tv.setText("Watch the Sequence");
@@ -191,7 +191,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
                 Log.i("updateTask","Reset to null should not be running");
             }
             i++;
-        }while (i <temp);
+        }
 
     }
 
