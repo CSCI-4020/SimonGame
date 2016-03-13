@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,12 +16,15 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameActivity extends Activity {
+public class GameActivity extends Activity implements View.OnClickListener{
 
     final static int maxSequence = 50;
     int[] sequence = new int[maxSequence];
-    // ArrayList<Integer> sequence = new ArrayList<>();
     private UpdateTask updateTask;
+    int temp =0;
+    int currentScore =0;
+    int highScore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,7 @@ public class GameActivity extends Activity {
         tv.setText("Press anywhere to start!");
 
         //Click anywhere to begin anonomyous inner class
+        setUnClickAble();
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainlayout);
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +43,79 @@ public class GameActivity extends Activity {
                 simonFunction();
             }
         });
+
+        ImageButton redButton =(ImageButton) findViewById(R.id.red_imageButton);
+        ImageButton greenButton =(ImageButton) findViewById(R.id.green_imageButton);
+        ImageButton yellowButton =(ImageButton) findViewById(R.id.yellow_imageButton);
+        ImageButton blueButton =(ImageButton) findViewById(R.id.blue_imageButton);
+
+        redButton.setOnClickListener(this);
+        greenButton.setOnClickListener(this);
+        yellowButton.setOnClickListener(this);
+        blueButton.setOnClickListener(this);
+
+
+
+
+    }
+
+
+
+    @Override
+    public void onClick(View v) {
+
+
+        if(v.getId()== R.id.red_imageButton){
+            if(sequence[temp]!=1){
+                lostGame();
+            }
+        }else if(v.getId() == R.id.green_imageButton){
+            if(sequence[temp]!=1){
+                lostGame();
+            }
+
+        }else if(v.getId() == R.id.yellow_imageButton){
+            if(sequence[temp]!=1){
+                lostGame();
+            }
+
+        }else if(v.getId()== R.id.blue_imageButton){
+            if(sequence[temp]!=1){
+                lostGame();
+            }
+
+        }
+        temp++;
+
+        if(sequence[temp]==0){
+            updateScore();
+            simonFunction();
+
+        }
+
+    }
+
+    public void lostGame(){
+        setUnClickAble();
+        temp=0;
+        TextView tv = (TextView) findViewById(R.id.message_textView);
+        tv.setText("You loose");
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainlayout);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                simonFunction();
+            }
+        });
+
+
+    }
+
+    public void updateScore(){
+        currentScore=currentScore+1;
+        TextView tv = (TextView)findViewById(R.id.current_textView);
+        tv.setText(Integer.toString(currentScore));
+
     }
 
     public int randomNumber() {
@@ -52,8 +130,8 @@ public class GameActivity extends Activity {
         TextView tv = (TextView) findViewById(R.id.message_textView);
 
 
-
-        for (int i = 0; i <= 49; i++) {
+        int i=0;
+        while (i < temp) {
 
             setUnClickAble();
             tv.setText("Watch the Sequence");
@@ -75,17 +153,18 @@ public class GameActivity extends Activity {
             if(updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
                 updateTask=null;
             }
-
+            i++;
         }
 
     }
 
 
-    public void simonFunction() {
+    public void simonFunction()  {
         showPattern();
 
 
     }
+
 
 
 
