@@ -37,7 +37,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
         tv.setText("Press anywhere to start!");
 
         //Click anywhere to begin anonomyous inner class
-      /*  setUnClickAble();
+      /*
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainlayout);
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +45,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
                 simonFunction();
             }
         });
-*/
+*/      //setUnClickAble();
         currentScore=0;
         TextView tc = (TextView)findViewById(R.id.current_textView);
         tc.setText(Integer.toString(currentScore));
@@ -108,10 +108,15 @@ public class GameActivity extends Activity implements View.OnClickListener{
         TextView tc = (TextView)findViewById(R.id.current_textView);
         tc.setText(Integer.toString(currentScore));
 
+
+
     }
 
     public void updateScore(){
         currentScore=currentScore+1;
+        TextView tc = (TextView)findViewById(R.id.current_textView);
+        tc.setText(Integer.toString(currentScore));
+
 
 
     }
@@ -146,7 +151,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
             }
 
             tv.setText("Enter the Sequence");
-            setClickAble();
+           setClickAble();
 
             if(updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
                 updateTask=null;
@@ -388,10 +393,10 @@ public class GameActivity extends Activity implements View.OnClickListener{
         ImageButton blueButton = (ImageButton) findViewById(R.id.blue_imageButton);
         ImageButton redButton = (ImageButton) findViewById(R.id.red_imageButton);
 
-        yellowButton.setClickable(true);
-        greenButton.setClickable(true);
-        blueButton.setClickable(true);
-        redButton.setClickable(true);
+        yellowButton.setEnabled(true);
+        greenButton.setEnabled(true);
+        blueButton.setEnabled(true);
+        redButton.setEnabled(true);
 
     }
 
@@ -401,10 +406,10 @@ public class GameActivity extends Activity implements View.OnClickListener{
         ImageButton blueButton = (ImageButton) findViewById(R.id.blue_imageButton);
         ImageButton redButton = (ImageButton) findViewById(R.id.red_imageButton);
 
-        yellowButton.setClickable(false);
-        greenButton.setClickable(false);
-        blueButton.setClickable(false);
-        redButton.setClickable(false);
+        yellowButton.setEnabled(false);
+        greenButton.setEnabled(false);
+        blueButton.setEnabled(false);
+        redButton.setEnabled(false);
 
 
     }
