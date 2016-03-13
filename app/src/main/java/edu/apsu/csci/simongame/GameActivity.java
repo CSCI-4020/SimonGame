@@ -66,29 +66,38 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
             if (v.getId() == R.id.red_imageButton) {
                 if (sequence[logger] != 1) {
+                    Log.i("OnClick", "Red button pressed");
                     lostGame();
                 }else{
                     Log.i("OnClick", "Red button pressed");
+                    logger++;
                 }
             } else if (v.getId() == R.id.green_imageButton) {
                 if (sequence[logger] != 2) {
+                    Log.i("OnClick", "Green button pressed");
                     lostGame();
                 }else{
                     Log.i("OnClick", "Green button pressed");
+                    logger++;
                 }
 
             } else if (v.getId() == R.id.yellow_imageButton) {
                 if (sequence[logger] != 3) {
+                    Log.i("OnClick", "Yellow button pressed");
                     lostGame();
+
                 }else{
                     Log.i("OnClick", "Yellow button pressed");
+                    logger++;
                 }
 
             } else if (v.getId() == R.id.blue_imageButton) {
                 if (sequence[logger] != 4) {
-                    lostGame();
+                    Log.i("OnClick", "Blue button pressed");
+                   lostGame();
                 }else{
                     Log.i("OnClick", "Blue button pressed");
+                    logger++;
                 }
 
             }
@@ -97,16 +106,17 @@ public class GameActivity extends Activity implements View.OnClickListener{
              temp++;
 
 
-            if(sequence[logger+1]==0){
+            if(sequence[logger]==0){
                 logger=0;
 
                 Log.i("if","sequence[logger] == 0 ");
+                Log.i("if logger value", String.valueOf(logger));
                 updateScore();
                 simonFunction();
 
 
             }
-            logger++;
+           // logger++;
 
 
 
@@ -115,6 +125,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
     }
 
     public void lostGame(){
+        Log.i("lostGame()","you loose");
         setUnClickAble();
         logger=0;
         i=0;
@@ -124,6 +135,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
         currentScore=0;
         TextView tc = (TextView)findViewById(R.id.current_textView);
         tc.setText(Integer.toString(currentScore));
+       // simonFunction();
 
 
 
@@ -167,7 +179,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
 
 
-        while (i <temp){
+
 
             setUnClickAble();
             tv.setText("Watch the Sequence");
@@ -175,6 +187,10 @@ public class GameActivity extends Activity implements View.OnClickListener{
             sequence[i]= randomNumber() + 1;
             Log.i("Sequence", Integer.toString(sequence[i]));
 
+            if(updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
+                updateTask=null;
+                Log.i("updateTask","Reset to null should not be running");
+            }
 
             if(updateTask==null) {
                 updateTask = new UpdateTask();
@@ -186,11 +202,15 @@ public class GameActivity extends Activity implements View.OnClickListener{
             tv.setText("Enter the Sequence");
             setClickAble();
 
-            if(updateTask != null || updateTask.getStatus() == AsyncTask.Status.FINISHED){
+            if(updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
                 updateTask=null;
                 Log.i("updateTask","Reset to null should not be running");
             }
             i++;
+
+
+        for(int it =0; it<sequence.length; it++){
+         Log.i("Array output", Integer.toString(sequence[it]));
         }
 
     }
@@ -212,7 +232,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
             int index=0;
 
-                while (index < logger+1) {
+                while (index < temp) {
                     if (sequence[index] == 1) {
                         runOnUiThread(new Runnable() {
                             @Override
