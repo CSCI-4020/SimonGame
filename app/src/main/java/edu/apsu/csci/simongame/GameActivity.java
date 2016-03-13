@@ -63,21 +63,21 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
 
             if (v.getId() == R.id.red_imageButton) {
-                if (sequence[logger] == 1) {
+                if (sequence[logger] != 1) {
                     lostGame();
                 }
             } else if (v.getId() == R.id.green_imageButton) {
-                if (sequence[logger] == 2) {
+                if (sequence[logger] != 2) {
                     lostGame();
                 }
 
             } else if (v.getId() == R.id.yellow_imageButton) {
-                if (sequence[logger] == 3) {
+                if (sequence[logger] != 3) {
                     lostGame();
                 }
 
             } else if (v.getId() == R.id.blue_imageButton) {
-                if (sequence[logger] == 4) {
+                if (sequence[logger] != 4) {
                     lostGame();
                 }
 
