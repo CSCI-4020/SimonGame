@@ -21,9 +21,11 @@ public class GameActivity extends Activity implements View.OnClickListener{
     final static int maxSequence = 50;
     int[] sequence = new int[maxSequence];
     private UpdateTask updateTask;
-    int temp =0;
+    int logger =0;
     int currentScore =0;
     int highScore;
+    int i=0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
         tv.setText("Press anywhere to start!");
 
         //Click anywhere to begin anonomyous inner class
-        setUnClickAble();
+      /*  setUnClickAble();
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainlayout);
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,16 +45,11 @@ public class GameActivity extends Activity implements View.OnClickListener{
                 simonFunction();
             }
         });
-
-        ImageButton redButton =(ImageButton) findViewById(R.id.red_imageButton);
-        ImageButton greenButton =(ImageButton) findViewById(R.id.green_imageButton);
-        ImageButton yellowButton =(ImageButton) findViewById(R.id.yellow_imageButton);
-        ImageButton blueButton =(ImageButton) findViewById(R.id.blue_imageButton);
-
-        redButton.setOnClickListener(this);
-        greenButton.setOnClickListener(this);
-        yellowButton.setOnClickListener(this);
-        blueButton.setOnClickListener(this);
+*/
+        currentScore=0;
+        TextView tc = (TextView)findViewById(R.id.current_textView);
+        tc.setText(Integer.toString(currentScore));
+        simonFunction();
 
 
 
@@ -65,56 +62,57 @@ public class GameActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
 
 
-        if(v.getId()== R.id.red_imageButton){
-            if(sequence[temp]!=1){
-                lostGame();
-            }
-        }else if(v.getId() == R.id.green_imageButton){
-            if(sequence[temp]!=1){
-                lostGame();
+            if (v.getId() == R.id.red_imageButton) {
+                if (sequence[logger] == 1) {
+                    lostGame();
+                }
+            } else if (v.getId() == R.id.green_imageButton) {
+                if (sequence[logger] == 2) {
+                    lostGame();
+                }
+
+            } else if (v.getId() == R.id.yellow_imageButton) {
+                if (sequence[logger] == 3) {
+                    lostGame();
+                }
+
+            } else if (v.getId() == R.id.blue_imageButton) {
+                if (sequence[logger] == 4) {
+                    lostGame();
+                }
+
             }
 
-        }else if(v.getId() == R.id.yellow_imageButton){
-            if(sequence[temp]!=1){
-                lostGame();
-            }
 
-        }else if(v.getId()== R.id.blue_imageButton){
-            if(sequence[temp]!=1){
-                lostGame();
-            }
-
-        }
-        temp++;
-
-        if(sequence[temp]==0){
+        if(sequence[logger]==0){
             updateScore();
             simonFunction();
 
         }
+        logger++;
+
+
+
+
+
 
     }
 
     public void lostGame(){
         setUnClickAble();
-        temp=0;
+        logger=0;
+        i=0;
         TextView tv = (TextView) findViewById(R.id.message_textView);
         tv.setText("You loose");
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainlayout);
-        rl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                simonFunction();
-            }
-        });
-
+        currentScore=0;
+        TextView tc = (TextView)findViewById(R.id.current_textView);
+        tc.setText(Integer.toString(currentScore));
 
     }
 
     public void updateScore(){
         currentScore=currentScore+1;
-        TextView tv = (TextView)findViewById(R.id.current_textView);
-        tv.setText(Integer.toString(currentScore));
+
 
     }
 
@@ -130,15 +128,15 @@ public class GameActivity extends Activity implements View.OnClickListener{
         TextView tv = (TextView) findViewById(R.id.message_textView);
 
 
-        int i=0;
-        while (i < temp) {
+
+         do{
 
             setUnClickAble();
             tv.setText("Watch the Sequence");
-            Log.i("Count", Integer.toString(i));
-            int temp = randomNumber() + 1;
-            Log.i("temp", Integer.toString(temp));
-            sequence[i] = temp;
+            Log.i("Int i", Integer.toString(i));
+            sequence[i]= randomNumber() + 1;
+            Log.i("Sequence", Integer.toString(sequence[i]));
+
 
             if(updateTask==null) {
                 updateTask = new UpdateTask();
@@ -154,13 +152,23 @@ public class GameActivity extends Activity implements View.OnClickListener{
                 updateTask=null;
             }
             i++;
-        }
+        }while (i <logger);
 
     }
 
 
     public void simonFunction()  {
         showPattern();
+
+        ImageButton redButton =(ImageButton) findViewById(R.id.red_imageButton);
+        ImageButton greenButton =(ImageButton) findViewById(R.id.green_imageButton);
+        ImageButton yellowButton =(ImageButton) findViewById(R.id.yellow_imageButton);
+        ImageButton blueButton =(ImageButton) findViewById(R.id.blue_imageButton);
+
+        redButton.setOnClickListener(this);
+        greenButton.setOnClickListener(this);
+        yellowButton.setOnClickListener(this);
+        blueButton.setOnClickListener(this);
 
 
     }
