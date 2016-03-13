@@ -25,6 +25,8 @@ public class GameActivity extends Activity implements View.OnClickListener{
     int currentScore =0;
     int highScore;
     int i=0;
+    int temp=0;
+
 
 
     @Override
@@ -62,35 +64,49 @@ public class GameActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
 
 
+
             if (v.getId() == R.id.red_imageButton) {
                 if (sequence[logger] != 1) {
                     lostGame();
+                }else{
+                    Log.i("OnClick", "Red button pressed");
                 }
             } else if (v.getId() == R.id.green_imageButton) {
                 if (sequence[logger] != 2) {
                     lostGame();
+                }else{
+                    Log.i("OnClick", "Green button pressed");
                 }
 
             } else if (v.getId() == R.id.yellow_imageButton) {
                 if (sequence[logger] != 3) {
                     lostGame();
+                }else{
+                    Log.i("OnClick", "Yellow button pressed");
                 }
 
             } else if (v.getId() == R.id.blue_imageButton) {
                 if (sequence[logger] != 4) {
                     lostGame();
+                }else{
+                    Log.i("OnClick", "Blue button pressed");
                 }
 
             }
 
+            Log.i("Logger", String.valueOf(logger));
 
-        if(sequence[logger]==0){
-            updateScore();
-            simonFunction();
 
-        }
-        logger++;
+            if(sequence[logger+1]==0){
 
+                Log.i("if","sequence[logger] == 0 ");
+                updateScore();
+                simonFunction();
+                logger=0;
+
+            }
+            logger++;
+            temp = logger;
 
 
 
@@ -129,6 +145,22 @@ public class GameActivity extends Activity implements View.OnClickListener{
         return randomNum;
     }
 
+    public void simonFunction()  {
+        showPattern();
+
+        ImageButton redButton =(ImageButton) findViewById(R.id.red_imageButton);
+        ImageButton greenButton =(ImageButton) findViewById(R.id.green_imageButton);
+        ImageButton yellowButton =(ImageButton) findViewById(R.id.yellow_imageButton);
+        ImageButton blueButton =(ImageButton) findViewById(R.id.blue_imageButton);
+
+        redButton.setOnClickListener(this);
+        greenButton.setOnClickListener(this);
+        yellowButton.setOnClickListener(this);
+        blueButton.setOnClickListener(this);
+
+
+    }
+
     public void showPattern(){
         TextView tv = (TextView) findViewById(R.id.message_textView);
 
@@ -153,30 +185,17 @@ public class GameActivity extends Activity implements View.OnClickListener{
             tv.setText("Enter the Sequence");
            setClickAble();
 
-            if(updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
+            if(updateTask != null || updateTask.getStatus() == AsyncTask.Status.FINISHED){
                 updateTask=null;
+                Log.i("updateTask","Reset to null should not be running");
             }
             i++;
-        }while (i <logger);
+        }while (i <temp);
 
     }
 
 
-    public void simonFunction()  {
-        showPattern();
 
-        ImageButton redButton =(ImageButton) findViewById(R.id.red_imageButton);
-        ImageButton greenButton =(ImageButton) findViewById(R.id.green_imageButton);
-        ImageButton yellowButton =(ImageButton) findViewById(R.id.yellow_imageButton);
-        ImageButton blueButton =(ImageButton) findViewById(R.id.blue_imageButton);
-
-        redButton.setOnClickListener(this);
-        greenButton.setOnClickListener(this);
-        yellowButton.setOnClickListener(this);
-        blueButton.setOnClickListener(this);
-
-
-    }
 
 
 
@@ -189,10 +208,10 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
 
 
-                int index = 0;
 
+            int index=0;
 
-                while (index < sequence.length) {
+                while (index < logger+1) {
                     if (sequence[index] == 1) {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -201,7 +220,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
                             }
                         });
 
-                        //  tv.setText("Red!");
+
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
@@ -236,7 +255,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
                             e.printStackTrace();
                         }
 
-                        //  tv.setText("Green!");
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -263,7 +282,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
                             e.printStackTrace();
                         }
 
-                        // tv.setText("Yellow!");
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -307,7 +326,9 @@ public class GameActivity extends Activity implements View.OnClickListener{
                         }
 
                     } else {
-                        break;
+                        Log.i("DIB","Return now");
+
+                       return null;
                     }
                     index++;
                 }
@@ -319,6 +340,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
 
 
+            Log.i("DIB","Should Kill now ");
 
 
             return null;
