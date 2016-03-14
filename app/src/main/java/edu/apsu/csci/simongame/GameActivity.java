@@ -8,6 +8,7 @@ import android.view.View;
 
 import android.widget.ImageButton;
 
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -37,20 +38,15 @@ public class GameActivity extends Activity implements View.OnClickListener{
         TextView tv = (TextView) findViewById(R.id.message_textView);
         tv.setText("Press anywhere to start!");
 
-        //Click anywhere to begin anonomyous inner class
-      /*
+
+        setUnClickAble();
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainlayout);
-        rl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                simonFunction();
-            }
-        });
-*/      //setUnClickAble();
+        rl.setOnClickListener(this);
+
         currentScore=0;
         TextView tc = (TextView)findViewById(R.id.current_textView);
         tc.setText(Integer.toString(currentScore));
-        simonFunction();
+        //simonFunction();
 
 
 
@@ -100,6 +96,10 @@ public class GameActivity extends Activity implements View.OnClickListener{
                     logger++;
                 }
 
+            }else if (v.getId() == R.id.mainlayout){
+                RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainlayout);
+                rl.setEnabled(false);
+                simonFunction();
             }
 
             Log.i("Logger", String.valueOf(logger));
@@ -135,6 +135,9 @@ public class GameActivity extends Activity implements View.OnClickListener{
         currentScore=0;
         TextView tc = (TextView)findViewById(R.id.current_textView);
         tc.setText(Integer.toString(currentScore));
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainlayout);
+        rl.setEnabled(true);
+        tv.setText("Press anywhere to start!");
        // simonFunction();
 
 
@@ -181,7 +184,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
 
 
-            setUnClickAble();
+           // setUnClickAble();
             tv.setText("Watch the Sequence");
             Log.i("Int i", Integer.toString(i));
             sequence[i]= randomNumber() + 1;
@@ -200,7 +203,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
             }
 
             tv.setText("Enter the Sequence");
-            setClickAble();
+           // setClickAble();
 
             if(updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
                 updateTask=null;
@@ -228,7 +231,12 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
 
 
-
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setUnClickAble();
+                }
+            });
 
             int index=0;
 
@@ -347,6 +355,13 @@ public class GameActivity extends Activity implements View.OnClickListener{
                         }
 
                     } else {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setClickAble();
+                            }
+                        });
                         Log.i("DIB","Return now");
 
                        return null;
@@ -363,7 +378,12 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
             Log.i("DIB","Should Kill now ");
 
-
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setClickAble();
+                }
+            });
             return null;
 
         }
@@ -441,6 +461,8 @@ public class GameActivity extends Activity implements View.OnClickListener{
         blueButton.setEnabled(true);
         redButton.setEnabled(true);
 
+        Log.i("setClickAble","click able");
+
     }
 
     public void setUnClickAble(){
@@ -453,6 +475,8 @@ public class GameActivity extends Activity implements View.OnClickListener{
         greenButton.setEnabled(false);
         blueButton.setEnabled(false);
         redButton.setEnabled(false);
+
+        Log.i("setUnClickAble", "not click able");
 
 
     }
