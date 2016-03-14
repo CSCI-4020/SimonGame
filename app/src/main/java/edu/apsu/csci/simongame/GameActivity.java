@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 import java.util.Random;
@@ -129,9 +129,10 @@ public class GameActivity extends Activity implements View.OnClickListener{
         setUnClickAble();
         logger=0;
         i=0;
+        Toast.makeText(GameActivity.this, "You Lost!!! You Lasted "+ currentScore + " rounds", Toast.LENGTH_SHORT).show();
 
         TextView tv = (TextView) findViewById(R.id.message_textView);
-        tv.setText("You lose");
+
         currentScore=0;
         TextView tc = (TextView)findViewById(R.id.current_textView);
         tc.setText(Integer.toString(currentScore));
