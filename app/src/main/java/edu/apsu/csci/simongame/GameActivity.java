@@ -1,5 +1,6 @@
 package edu.apsu.csci.simongame;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,7 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GameActivity extends Activity implements View.OnClickListener{
 
@@ -23,10 +31,10 @@ public class GameActivity extends Activity implements View.OnClickListener{
     private UpdateTask updateTask;
     int logger =0;
     int currentScore =0;
-    int highScore;
+    int highScore =0;
     int i=0;
     int temp =1;
-
+    private final String highScoreFile = "highscore.txt";
 
 
 
@@ -47,6 +55,8 @@ public class GameActivity extends Activity implements View.OnClickListener{
         currentScore=0;
         TextView tc = (TextView)findViewById(R.id.current_textView);
         tc.setText(Integer.toString(currentScore));
+        highScore = readHighScore();
+        setHighScore(highScore);
         //simonFunction();
 
 
@@ -54,7 +64,47 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
     }
 
+    private int readHighScore() {
+        int temp = 0;
 
+
+        try {
+            FileInputStream fis = openFileInput(highScoreFile);
+            Scanner scanner = new Scanner(fis);
+
+            temp = scanner.nextInt();
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return temp;
+    }
+
+    private void writeHighScore() {
+        if (currentScore > highScore) {
+            try {
+                FileOutputStream fos = openFileOutput(highScoreFile, Context.MODE_PRIVATE);
+                OutputStreamWriter os = new OutputStreamWriter(fos);
+                BufferedWriter bw = new BufferedWriter(os);
+                PrintWriter pw = new PrintWriter(bw);
+
+                pw.println(currentScore);
+                TextView tv = (TextView) findViewById(R.id.highscore_textView);
+                tv.setText(Integer.toString(currentScore));
+                pw.close();
+            } catch (FileNotFoundException e) {
+                Log.e("WRITE", "Cannot Save Data" + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void setHighScore(int hs) {
+        TextView tv = (TextView) findViewById(R.id.highscore_textView);
+        tv.setText(Integer.toString(hs));
+    }
 
     @Override
     public void onClick(View v) {
@@ -126,15 +176,12 @@ public class GameActivity extends Activity implements View.OnClickListener{
     }
 
     public void lostGame(){
-        Log.i("lostGame()","you lost");
-
+        Log.i("lostGame()", "you lost");
+        writeHighScore();
 
 
         Toast.makeText(GameActivity.this, "You Lost!!! You Lasted "+ currentScore + " rounds", Toast.LENGTH_SHORT).show();
         //**********************Put file writing function here *****************
-
-
-
 
 
 
