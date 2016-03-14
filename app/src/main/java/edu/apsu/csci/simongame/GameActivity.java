@@ -72,7 +72,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
         tc.setText(Integer.toString(currentScore));
         highScore = readHighScore();
         setHighScore(highScore);
-        //simonFunction();
+
 
         AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
         attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
