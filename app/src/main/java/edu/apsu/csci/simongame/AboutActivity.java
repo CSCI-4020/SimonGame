@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.widget.TextView;
 
 public class AboutActivity extends Activity {
-    private String about;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

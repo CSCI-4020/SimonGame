@@ -131,7 +131,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
         i=0;
 
         TextView tv = (TextView) findViewById(R.id.message_textView);
-        tv.setText("You loose");
+        tv.setText("You lose");
         currentScore=0;
         TextView tc = (TextView)findViewById(R.id.current_textView);
         tc.setText(Integer.toString(currentScore));
