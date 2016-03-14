@@ -35,7 +35,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
     int i=0;
     int temp =1;
     private final String highScoreFile = "highscore.txt";
-    int update;
+    
 
 
 
