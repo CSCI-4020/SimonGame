@@ -2,6 +2,8 @@ package edu.apsu.csci.simongame;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -21,8 +23,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 
 public class GameActivity extends Activity implements View.OnClickListener{
 
@@ -36,6 +40,16 @@ public class GameActivity extends Activity implements View.OnClickListener{
     int temp =1;
     private final String highScoreFile = "highscore.txt";
 
+    private SoundPool soundPool;
+
+    private int soundBellId;
+    private int soundBingId;
+    private int soundBoingId;
+    private int soundDingId;
+    private int soundSuckId;
+
+    private Set<Integer> soundsLoaded;
+    
 
 
 
@@ -60,8 +74,41 @@ public class GameActivity extends Activity implements View.OnClickListener{
         setHighScore(highScore);
         //simonFunction();
 
+        AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
+        attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
+
+        SoundPool.Builder spBuilder = new SoundPool.Builder();
+        spBuilder.setMaxStreams(2);
+        soundPool = spBuilder.build();
+
+        soundsLoaded = new HashSet<>();
+
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if(status==0){
+                    soundsLoaded.add(sampleId);
+                }
+            }
+        });
 
 
+        soundBellId = soundPool.load(getApplicationContext(),R.raw.bell,1);
+        soundBingId = soundPool.load(getApplicationContext(),R.raw.bing,1);
+        soundBoingId = soundPool.load(getApplicationContext(),R.raw.boing,1);
+        soundDingId = soundPool.load(getApplicationContext(),R.raw.ding,1);
+        soundSuckId = soundPool.load(getApplicationContext(),R.raw.suck,1);
+
+
+
+
+    }
+
+    private void playSound(int soundId){
+        if(soundsLoaded.contains(soundId)){
+            soundPool.play(soundId,1.0f,1.0f,0,0,1.0f);
+
+        }
 
     }
 
@@ -179,10 +226,11 @@ public class GameActivity extends Activity implements View.OnClickListener{
     public void lostGame(){
         Log.i("lostGame()", "you lost");
         writeHighScore();
+        playSound(soundSuckId);
 
 
         Toast.makeText(GameActivity.this, "You Lost!!! You Lasted "+ currentScore + " rounds", Toast.LENGTH_SHORT).show();
-        //**********************Put file writing function here *****************
+
 
 
 
@@ -450,6 +498,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
         ImageButton redButton = (ImageButton) findViewById(R.id.red_imageButton);
         redButton.setImageResource(R.drawable.selector);
         Log.i("Red","Changed to Selector");
+        playSound(soundBellId);
 
 
 
@@ -465,6 +514,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
         ImageButton blueButton = (ImageButton) findViewById(R.id.blue_imageButton);
         blueButton.setImageResource(R.drawable.selector);
         Log.i("Blue", "Changed to selector");
+        playSound(soundBingId);
     }
 
     public void showBlueButton() {
@@ -479,6 +529,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
         ImageButton greenButton = (ImageButton) findViewById(R.id.green_imageButton);
         greenButton.setImageResource(R.drawable.selector);
         Log.i("Green", "Changed to selector");
+        playSound(soundBoingId);
     }
 
     public void showGreenButton() {
@@ -494,6 +545,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
         ImageButton yellowButton = (ImageButton) findViewById(R.id.yellow_imageButton);
         yellowButton.setImageResource(R.drawable.selector);
         Log.i("Yellow", "Changed to selector");
+        playSound(soundDingId);
     }
 
     public void showYellowButton() {
