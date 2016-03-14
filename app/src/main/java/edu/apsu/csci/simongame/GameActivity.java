@@ -1,5 +1,6 @@
 package edu.apsu.csci.simongame;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -116,7 +117,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
 
             }
-           // logger++;
+
 
 
 
@@ -125,25 +126,28 @@ public class GameActivity extends Activity implements View.OnClickListener{
     }
 
     public void lostGame(){
-        Log.i("lostGame()","you loose");
-        setUnClickAble();
-        logger=0;
-        i=0;
+        Log.i("lostGame()","you lost");
+
+
+
         Toast.makeText(GameActivity.this, "You Lost!!! You Lasted "+ currentScore + " rounds", Toast.LENGTH_SHORT).show();
+        //**********************Put file writing function here *****************
 
-        TextView tv = (TextView) findViewById(R.id.message_textView);
 
-        currentScore=0;
-        TextView tc = (TextView)findViewById(R.id.current_textView);
-        tc.setText(Integer.toString(currentScore));
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainlayout);
-        rl.setEnabled(true);
-        tv.setText("Press anywhere to start!");
-       // simonFunction();
+
+
+
+
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+        finish();
+
+
 
 
 
     }
+
 
     public void updateScore(){
         currentScore=currentScore+1;
@@ -185,7 +189,7 @@ public class GameActivity extends Activity implements View.OnClickListener{
 
 
 
-           // setUnClickAble();
+
             tv.setText("Watch the Sequence");
             Log.i("Int i", Integer.toString(i));
             sequence[i]= randomNumber() + 1;
@@ -203,8 +207,8 @@ public class GameActivity extends Activity implements View.OnClickListener{
                 Log.i("update task","Already running update task");
             }
 
-            tv.setText("Enter the Sequence");
-           // setClickAble();
+        tv.setText("Enter the Sequence");
+
 
             if(updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
                 updateTask=null;
@@ -213,9 +217,12 @@ public class GameActivity extends Activity implements View.OnClickListener{
             i++;
 
 
-        for(int it =0; it<sequence.length; it++){
-         Log.i("Array output", Integer.toString(sequence[it]));
-        }
+       /*
+
+       ******* For Testing Purpose of the array population ********
+            for(int it =0; it<sequence.length; it++){
+                Log.i("Array output", Integer.toString(sequence[it]));
+        }*/
 
     }
 
